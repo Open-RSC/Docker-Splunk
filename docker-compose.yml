@@ -1,0 +1,27 @@
+version: '3'
+services:
+
+  splunk:
+    container_name: splunk
+    image: splunk/splunk:latest
+    hostname: localhost
+    environment:
+      SPLUNK_START_ARGS: --accept-license
+      OPTIMISTIC_ABOUT_FILE_LOCKING: 1
+      SPLUNK_ENABLE_LISTEN: 9997
+      SPLUNK_ADD: tcp 1514
+      SPLUNK_PASSWORD: 'changepass'
+    expose:
+      - 80 # Splunk web interface
+      - 9997 # Splunk receiving port typically used by the Splunk Universal Forwarder
+      - 8088 # HTTP event collector
+      - 1514 # Network input typically used to collect syslog TCP data
+    volumes:
+      - './etc:/opt/splunk/etc'
+      - './var:/opt/splunk/var'
+      - './import:/opt/splunk/import'
+
+networks:
+  default:
+    external:
+      name: nginx-proxy

@@ -1,1 +1,1 @@
-docker-splunk
+This allows a Docker container for Splunk to be quickly deployed and routed through the Docker Nginx proxy.
