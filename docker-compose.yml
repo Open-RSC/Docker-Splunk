@@ -22,3 +22,5 @@ services:
       - './etc:/opt/splunk/etc'
       - './var:/opt/splunk/var'
       - './import:/opt/splunk/import'
+      - '/usr/local/zeek/logs:/usr/local/zeek/logs'
+      - '/usr/local/zeek/logs/current:/usr/local/zeek/logs/current'
