@@ -4,13 +4,17 @@ services:
   splunk:
     container_name: splunk
     image: splunk/splunk:latest
-    hostname: localhost
+    restart: always
+    hostname: ${HOSTNAME}
     environment:
+      VIRTUAL_HOST: ${HOSTNAME}
+      LETSENCRYPT_HOST: ${HOSTNAME}
+      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
       SPLUNK_START_ARGS: --accept-license
       OPTIMISTIC_ABOUT_FILE_LOCKING: 1
       SPLUNK_ENABLE_LISTEN: 9997
       SPLUNK_ADD: tcp 1514
-      SPLUNK_PASSWORD: 'changepass'
+      SPLUNK_PASSWORD: ${SPLUNK_PASSWORD}
     expose:
       - 80 # Splunk web interface
       - 9997 # Splunk receiving port typically used by the Splunk Universal Forwarder
