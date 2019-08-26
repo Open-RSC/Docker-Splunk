@@ -23,6 +23,7 @@ services:
       - './etc:/opt/splunk/etc' # saves to local path for retention
       - './var:/opt/splunk/var' # saves to local path for retention
       - './import:/opt/splunk/import' # saves to local path for retention
-      - '/usr/local/zeek/logs:/var/log/zeek' # zeek logs
+      - '/usr/local/zeek/logs:/usr/local/zeek/logs' # zeek logs
+      - '/usr/local/zeek/logs/current:/usr/local/zeek/logs/current' # zeek logs
       - '/var/log:/var/log' # all linux logs
       - '/opt/Game:/opt/Game' # gameserver.log
