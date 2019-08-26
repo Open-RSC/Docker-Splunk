@@ -26,3 +26,4 @@ services:
       - '/usr/local/zeek/logs/current'
       - '/var/log'
       - '/var/log/nginx'
+      - '/var/log/mysql'
