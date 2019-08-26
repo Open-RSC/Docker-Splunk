@@ -15,15 +15,16 @@ services:
       SPLUNK_USER: root
       SPLUNK_PASSWORD: ${SPLUNK_PASSWORD}
     ports:
-      - '8000:8000' # Splunk web interface
-      - '9997:9997' # Splunk receiving port typically used by the Splunk Universal Forwarder
-      - '8088:8088' # HTTP event collector
-      - '1514:1514' # Network input typically used to collect syslog TCP data
+      - '8000:8000' #Splunk web interface
+      - '9997:9997' #Splunk receiving port typically used by the Splunk Universal Forwarder
+      - '8088:8088' #HTTP event collector
+      - '1514:1514' #Network input typically used to collect syslog TCP data
     volumes:
-      - './etc:/opt/splunk/etc' # saves to local path for retention
-      - './var:/opt/splunk/var' # saves to local path for retention
-      - './import:/opt/splunk/import' # saves to local path for retention
-      - '/usr/local/zeek/logs:/usr/local/zeek/logs' # zeek logs
-      - '/usr/local/zeek/logs/current:/usr/local/zeek/logs/current' # zeek logs
-      - '/var/log:/var/log' # all linux logs
-      - '/opt/Game:/opt/Game' # gameserver.log
+      - './etc:/opt/splunk/etc' #saves to local path for retention
+      - './var:/opt/splunk/var' #saves to local path for retention
+      - './import:/opt/splunk/import' #saves to local path for retention
+      - '/usr/local/zeek/logs:/usr/local/zeek/logs' #zeek logs
+      - '/usr/local/zeek/logs/current:/usr/local/zeek/logs/current' #zeek logs
+      - '/var/log:/var/log' #all linux logs
+      - '/opt/Game:/opt/Game' #gameserver.log
+      - '/srv/snort:/srv/snort' #snort alerts
