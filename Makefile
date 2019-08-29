@@ -10,3 +10,6 @@ restart:
 
 logs:
 	@docker-compose logs -f
+
+ps:
+	docker-compose ps

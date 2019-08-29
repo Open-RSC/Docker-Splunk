@@ -1,18 +1,38 @@
 version: '3'
 services:
 
+  nginx:
+    image: nginx:latest
+    container_name: nginx-splunk
+    restart: always
+    hostname: ${SPLUNK_HOSTNAME}
+    env_file:
+      - ".env"
+    environment:
+      VIRTUAL_HOST: ${SPLUNK_HOSTNAME}
+      LETSENCRYPT_HOST: ${SPLUNK_HOSTNAME}
+      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
+      NGINX_HOST: ${SPLUNK_HOSTNAME}
+    expose:
+      - 80
+      - 443
+    volumes:
+      - './nginx:/etc/nginx/conf.d'
+
   splunk:
     container_name: splunk
     image: splunk/splunk:latest
     restart: always
-    hostname: ${HOSTNAME}
+    hostname: ${SPLUNK_HOSTNAME}
+    env_file:
+      - ".env"
     environment:
-      VIRTUAL_HOST: ${HOSTNAME}
+      VIRTUAL_HOST: ${SPLUNK_HOSTNAME}
       SPLUNK_START_ARGS: --accept-license
       OPTIMISTIC_ABOUT_FILE_LOCKING: 1
       SPLUNK_ENABLE_LISTEN: 9997
       SPLUNK_ADD: tcp 1514
-      SPLUNK_USER: root
+      SPLUNK_USER: ${SPLUNK_USER}
       SPLUNK_PASSWORD: ${SPLUNK_PASSWORD}
     ports:
       - '8000:8000' #Splunk web interface
@@ -23,8 +43,13 @@ services:
       - './etc:/opt/splunk/etc' #saves to local path for retention
       - './var:/opt/splunk/var' #saves to local path for retention
       - './import:/opt/splunk/import' #saves to local path for retention
-      - '/usr/local/zeek/logs:/usr/local/zeek/logs' #zeek logs
-      - '/usr/local/zeek/logs/current:/usr/local/zeek/logs/current' #zeek logs
-      - '/var/log:/var/log' #all linux logs
-      - '/opt/Game:/opt/Game' #gameserver.log
-      - '/srv/snort:/srv/snort' #snort alerts
+#      - '/usr/local/zeek/logs:/usr/local/zeek/logs' #zeek logs
+#      - '/usr/local/zeek/logs/current:/usr/local/zeek/logs/current' #zeek logs
+#      - '/var/log:/var/log' #all linux logs
+#      - '/opt/Game:/opt/Game' #gameserver.log
+#      - '/srv/snort:/srv/snort' #snort alerts
+
+networks:
+  default:
+    external:
+      name: nginx-proxy
