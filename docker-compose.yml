@@ -32,8 +32,7 @@ services:
       OPTIMISTIC_ABOUT_FILE_LOCKING: 1
       SPLUNK_ENABLE_LISTEN: 9997
       SPLUNK_ADD: tcp 1514
-      #SPLUNK_USER: ${SPLUNK_USER}
-      #SPLUNK_PASSWORD: ${SPLUNK_PASSWORD}
+      SPLUNK_PASSWORD: ${SPLUNK_PASSWORD}
     ports:
       - '8000:8000' #Splunk web interface
       - '9997:9997' #Splunk receiving port typically used by the Splunk Universal Forwarder
